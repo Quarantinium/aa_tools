@@ -1,7 +1,13 @@
+/*
+Created By Sukran / Quarantinium discord:quarantinium
+
+*/
 import { dt } from "./dt.js"
 import { dialog } from "./dialog.js"
 import { reader, REGEX } from "./reader.js"
 import { chart } from "./chart.js"
+
+
 
 const r = new reader()
 
@@ -85,6 +91,18 @@ new dialog(document.getElementById("Mode"), document.getElementById("Mode-dialog
 // console.log(d)
 
 document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("Mode") == null)
+        localStorage.setItem("Mode","dps")
+    if (localStorage.getItem("blacklist") == null)
+        localStorage.setItem("blacklist","Squad Horse\n")
+    if (localStorage.getItem("Observer") == null)
+        localStorage.setItem("Observer","yourname goes here")
+
+    if (sessionStorage.getItem("Attacker") == null)
+        sessionStorage.setItem("Attacker","")
+    
+    
+
     document.getElementById("blacklist_text").value = localStorage.getItem("blacklist")
     const Mode_select = document.getElementById("mode_select")
     Mode_select.value = localStorage.getItem("Mode")
