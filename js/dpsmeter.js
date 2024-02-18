@@ -91,6 +91,7 @@ new dialog(document.getElementById("Mode"), document.getElementById("Mode-dialog
 // console.log(d)
 
 document.addEventListener("DOMContentLoaded", () => {
+    //fight me its easier that way
     if (localStorage.getItem("Mode") == null)
         localStorage.setItem("Mode","dps")
     if (localStorage.getItem("blacklist") == null)
@@ -100,7 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (sessionStorage.getItem("Attacker") == null)
         sessionStorage.setItem("Attacker","")
-    
+    if (sessionStorage.getItem("end") == null)
+        sessionStorage.setItem("end",Date.now())
+    if (sessionStorage.getItem("start") == null)
+        sessionStorage.setItem("start",Date.now() - 3600000)
+
     
 
     document.getElementById("blacklist_text").value = localStorage.getItem("blacklist")
