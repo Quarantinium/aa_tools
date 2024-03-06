@@ -3,7 +3,7 @@
 export const REGEX = {
     "dps": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r attacked (.*)\|r using \|.{9}(.*)\|r\|r and caused \|.{9}-{0,1}([0-9]*).*Health/,
     "heal": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r targeted (.*)\|r using \|.{9}(.*)\|r\|r.* \|.{9}([0-9]*).* health/,
-    "debuff": /^([0-9]*) \[(.*)] => \|.*;(.*)\|(?:r|r's).*\|.{9}(.*)\|r\|r ((?:debuff cleared|debuff))/,
+    // "debuff": /^([0-9]*) \[(.*)] => \|.*;(.*)\|(?:r|r's).*\|.{9}(.*)\|r\|r ((?:debuff cleared|debuff))/,
 }
 
 export class reader {
