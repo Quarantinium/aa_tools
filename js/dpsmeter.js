@@ -83,7 +83,7 @@ const dmg_timeline = new chart(document.getElementById("DMGtimeline"), "bar", {
 console.log(dmgchart)
 
 new dialog(document.getElementById("LoadData"), document.getElementById("loadData-dialog"))
-new dialog(document.getElementById("Observer"), document.getElementById("Observer-dialog"))
+// new dialog(document.getElementById("Observer"), document.getElementById("Observer-dialog"))
 new dialog(document.getElementById("Timeframe"), document.getElementById("Timeframe-dialog"))
 new dialog(document.getElementById("Inspect"), document.getElementById("Inspect-dialog"))
 new dialog(document.getElementById("Blacklist"), document.getElementById("Blacklist-dialog"))
@@ -131,9 +131,9 @@ document.getElementById("time_end").addEventListener("change", e => {
     sessionStorage.setItem("end", (Date.parse(e.target.value)))
 })
 
-document.getElementById("ObserverName").addEventListener("change", e => {
-    localStorage.setItem("Observer", e.target.value)
-})
+// document.getElementById("ObserverName").addEventListener("change", e => {
+//     localStorage.setItem("Observer", e.target.value)
+// })
 
 document.getElementById("Inspect_name").addEventListener("change", e => {
     sessionStorage.setItem("Attacker", e.target.value)

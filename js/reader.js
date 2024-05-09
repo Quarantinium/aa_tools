@@ -1,8 +1,11 @@
 // import  GRAPH  from "./graph.js"
 
 export const REGEX = {
-    "dps": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r attacked (.*)\|r using \|.{9}(.*)\|r\|r and caused \|.{9}-{0,1}([0-9]*).*Health/,
-    "heal": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r targeted (.*)\|r using \|.{9}(.*)\|r\|r.* \|.{9}([0-9]*).* health/,
+    // "dps": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r attacked (.*)\|r using \|.{9}(.*)\|r\|r and caused \|.{9}-{0,1}([0-9]*).*Health/,
+    "dps": /^<(?<time>[0-9- :]+)(?<attacker>.+)\|r attacked (?<victim>.+)\|r using \|.{9}(?<skill>.+)\|r and caused \|.{9}-(?<damage>[0-9]+)\|r \|.+Health\|/,
+    // "heal": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r targeted (.*)\|r using \|.{9}(.*)\|r\|r.* \|.{9}([0-9]*).* health/,
+    "heal": /^<(?<time>[0-9- :]+)(?<attacker>.+)\|r targeted (?<victim>.+)\|r using \|.{9}(?<skill>.+)\|r to restore \|.{9}(?<damage>[0-9]+)\|r health/
+    // "buff" : /^([0-9]*) \[(.*)] => \|.*;(.*)\|(?:r|r's)() (?:gained the buff: )*\|.{9}(.*)\|r\|r( buff ended|)/,
     // "debuff": /^([0-9]*) \[(.*)] => \|.*;(.*)\|(?:r|r's).*\|.{9}(.*)\|r\|r ((?:debuff cleared|debuff))/,
 }
 
@@ -68,43 +71,62 @@ export class reader {
 
 
                         lines.forEach(async line => {
-                            // console.log('Line:', line);
-                            line_count++
-                            if (line_count % 10000 == 0) {
-                                console.log(`${line_count} lines processed`)
-                                // await new Promise((res,rej)=>{
-                                //     setTimeout(res,100)
-                                // })
-                            }
-                            for (let i in REGEX) {
-                                const matches = REGEX[i].exec(line)
-                                // console.log(matches)
-
-
-                                if (matches) {
-                                    const time = matches[1]
-                                    const observer = matches[2]
-                                    const attacker = matches[3]
-                                    const victim = matches[4]
-                                    const skill = matches[5]
-                                    const dmg = matches[6]
-                                    if (observer == localStorage.getItem("Observer")) {
-                                        dt.addData([Number(time), attacker, victim, skill, Number(dmg)],i)
-
-                                    }
-                                    // console.log(observer,attacker, { time: time, dmg: dmg, victim: victim, skill: skill })
-                                    // DPS[observer][attacker].push({ time: time, dmg: dmg, victim: victim, skill: skill })
-                                    // GRAPH.addData(observer, attacker, { time: Number(time), dmg: Number(dmg), victim: victim, skill: skill })
-                                    // GRAPH.setEarliestTime(Number(time))
-                                    // GRAPH.setLatestTime(Number(time))
-                                    // DPS[observer].push({ time: time, dmg: dmg, attacker: attacker, victim: victim, skill: skill })
+                            try {
+                                // console.log('Line:', line);
+                                line_count++
+                                if (line_count % 10000 == 0) {
+                                    console.log(`${line_count} lines processed`)
+                                    // await new Promise((res,rej)=>{
+                                    //     setTimeout(res,100)
+                                    // })
                                 }
-                                // console.log('Line count:', linecount)
-                                // per.textContent = line
-                                // linecount++
-                                // if (linecount % 100000 == 0) {
-                                //     per.textContent = linecount
-                                // }
+                                for (let i in REGEX) {
+                                    const matches = REGEX[i].exec(line)
+                                    // console.log(matches)
+                                    // console.log(matches == true)
+
+                                    if (matches) {
+                                        // const time = matches[1]
+                                        const time = Date.parse(matches.groups.time)
+                                        // const observer = matches[2]
+                                        //rip
+                                        // const attacker = matches[3]
+                                        const attacker = matches.groups.attacker
+                                        // const victim = matches[4]
+                                        const victim = matches.groups.victim
+                                        // const skill = matches[5]
+                                        const skill = matches.groups.skill
+                                        // const dmg = matches[6]
+                                        const dmg = matches.groups.damage
+
+                                        // if(i == "buff")
+                                        // {
+                                        //     console.log(matches)
+                                        // }
+                                        // console.log(observer == localStorage.getItem("Observer"))
+                                        // if (observer == localStorage.getItem("Observer")) {
+                                            console.log("adding")
+                                            console.log([Number(time)/1000, attacker, victim, skill, Number(dmg) | dmg , i])
+                                            dt.addData([Number(time)/1000, attacker, victim, skill, Number(dmg) | dmg], i)
+
+                                        // }
+                                        // console.log(observer,attacker, { time: time, dmg: dmg, victim: victim, skill: skill })
+                                        // DPS[observer][attacker].push({ time: time, dmg: dmg, victim: victim, skill: skill })
+                                        // GRAPH.addData(observer, attacker, { time: Number(time), dmg: Number(dmg), victim: victim, skill: skill })
+                                        // GRAPH.setEarliestTime(Number(time))
+                                        // GRAPH.setLatestTime(Number(time))
+                                        // DPS[observer].push({ time: time, dmg: dmg, attacker: attacker, victim: victim, skill: skill })
+                                    }
+                                    // console.log('Line count:', linecount)
+                                    // per.textContent = line
+                                    // linecount++
+                                    // if (linecount % 100000 == 0) {
+                                    //     per.textContent = linecount
+                                    // }
+                                }
+                            }
+                            catch (error) {
+                                console.log(error)
                             }
                         });
                     }
