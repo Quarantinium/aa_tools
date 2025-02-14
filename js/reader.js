@@ -2,9 +2,9 @@
 
 export const REGEX = {
     // "dps": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r attacked (.*)\|r using \|.{9}(.*)\|r\|r and caused \|.{9}-{0,1}([0-9]*).*Health/,
-    "dps": /^<(?<time>[0-9- :]+)(?<attacker>.+)\|r attacked (?<victim>.+)\|r using \|.{9}(?<skill>.+)\|r and caused \|.{9}-(?<damage>[0-9]+)\|r \|.+Health\|/,
+    "dps": /^<(?<time>[0-9- :]+)(?<attacker>.+)\|r attacked (?<victim>.+)\|r using \|.{9}(?<skill>.+)\|r\|r and caused \|.{9}-(?<damage>[0-9]+)\|r\|r \|.+Health\|/,
     // "heal": /^([0-9]*) \[(.*)] => \|.*;(.*)\|r targeted (.*)\|r using \|.{9}(.*)\|r\|r.* \|.{9}([0-9]*).* health/,
-    "heal": /^<(?<time>[0-9- :]+)(?<attacker>.+)\|r targeted (?<victim>.+)\|r using \|.{9}(?<skill>.+)\|r to restore \|.{9}(?<damage>[0-9]+)\|r health/
+    "heal": /^<(?<time>[0-9- :]+)(?<attacker>.+)\|r targeted (?<victim>.+)\|r using \|.{9}(?<skill>.+)\|r to restore \|.{9}(?<damage>[0-9]+)\|r\|r health/
     // "buff" : /^([0-9]*) \[(.*)] => \|.*;(.*)\|(?:r|r's)() (?:gained the buff: )*\|.{9}(.*)\|r\|r( buff ended|)/,
     // "debuff": /^([0-9]*) \[(.*)] => \|.*;(.*)\|(?:r|r's).*\|.{9}(.*)\|r\|r ((?:debuff cleared|debuff))/,
 }
